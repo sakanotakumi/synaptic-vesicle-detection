@@ -1,0 +1,60 @@
+# Default configuration for SV detection
+# Copy and modify this file to customize parameters
+
+# Input parameters
+voxel_size_nm: [8.0, 8.0, 8.0]  # z, y, x in nanometers
+diameter_range_nm: [30.0, 50.0]  # Expected SV diameter range in nm
+
+# Tile processing for large volumes
+tile_size: 256
+halo_size: 20
+
+# Preprocessing
+intensity_percentiles: [2.0, 98.0]
+normalization_method: "z_score"  # "z_score" or "min_max"
+
+# LoG/DoG parameters
+log_sigma_steps: 5
+scale_normalization: true
+use_dog: false  # Use DoG instead of LoG
+
+# Peak detection
+peak_threshold_percentile: 99.5
+min_distance_voxel: 3
+
+# Non-Maximum Suppression
+nms_radius_factor: 0.9
+nms_min_radius: 3
+nms_max_radius: 10
+
+# Feature calculation
+ringness_inner_offset: 2
+ringness_outer_thickness: 2
+ringness_robustness_steps: 3
+
+# Sphericity (Hessian)
+isotropy_threshold: 0.7
+min_hessian_eigenvalue: 0.01
+hessian_sigma_factor: 1.0
+
+# Scoring weights
+score_weights:
+  log_response: 0.4
+  ringness: 0.4
+  isotropy: 0.2
+
+# Final filtering
+score_threshold: null  # Auto-determined if null
+max_detections_per_volume_voxel: 100.0  # per 10^6 voxels
+
+# Performance
+n_workers: -1  # -1 for all cores
+use_gpu: false
+chunk_size_mb: 512
+
+# Random seed
+random_seed: 47
+
+# Output
+output_formats: ["parquet", "napari_csv"]
+save_qc_images: true
