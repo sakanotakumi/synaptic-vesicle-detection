@@ -5,7 +5,7 @@ Peak detection and Non-Maximum Suppression (NMS) functions.
 from typing import Tuple, List
 import numpy as np
 from scipy.spatial.distance import cdist
-from skimage.feature import peak_local_maxima
+from skimage.feature import peak_local_max
 
 
 def detect_peaks_3d(
@@ -29,7 +29,7 @@ def detect_peaks_3d(
     threshold = np.percentile(response, threshold_percentile)
     
     # Find local maxima
-    peak_coords = peak_local_maxima(
+    peak_coords = peak_local_max(
         response,
         min_distance=min_distance,
         threshold_abs=threshold,
